@@ -1,31 +1,40 @@
 
 const Category = ({ categories, frequencies }) => {
-  return categories.transport.map((item, index) => (
-    <table key={index}>
-      <tbody>
-        <tr>
-          <td>{item.name}</td>
-          <td>
-            Amount:
-            <input type="text" />
-          </td>
-          <td>
-            Frequency:
-            <select>
-              {frequencies.map((frequency) => (
-                <option key={frequency}>
-                  {frequency}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td>
-            Annually:
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  ))
+  return (
+    <>
+      {Object.keys(categories).map((categoryKey) => (
+        <div key={categoryKey}>
+          <h2>{categoryKey}</h2>
+          {categories[categoryKey].map((item, index) => (
+            <table key={index}>
+              <tbody>
+                <tr>
+                  <td>{item.name}</td>
+                  <td>
+                    Amount:
+                    <input type="text" />
+                  </td>
+                  <td>
+                    Frequency:
+                    <select>
+                      {frequencies.map((frequency) => (
+                        <option key={frequency} value={frequency}>
+                          {frequency}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    Annually:
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          ))}
+        </div>
+      ))}
+    </>
+  )
 }
 
 const App = () => {
