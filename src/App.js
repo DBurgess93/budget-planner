@@ -1,12 +1,27 @@
 
-const Category = ({ categories }) => {
+const Category = ({ categories, frequencies }) => {
   return categories.transport.map((item, index) => (
     <table key={index}>
       <tbody>
         <tr>
-          <td>{item.name} - </td>
-          <td>Amount: {item.amount} - </td>
-          <td>Frequency {item.frequency} </td>
+          <td>{item.name}</td>
+          <td>
+            Amount:
+            <input type="text" />
+          </td>
+          <td>
+            Frequency:
+            <select>
+              {frequencies.map((frequency) => (
+                <option key={frequency}>
+                  {frequency}
+                </option>
+              ))}
+            </select>
+          </td>
+          <td>
+            Annually:
+          </td>
         </tr>
       </tbody>
     </table>
@@ -27,69 +42,69 @@ const App = () => {
       {
         name: 'Car loan',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Registration',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Insurance',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Fuel',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Maintenance',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Public Transport',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       }
     ],
     home: [
       {
         name: 'Home Loan',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Rent',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Maintenance',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Insurance',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Assest',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Groceries',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
       {
         name: 'Laundry',
         amount: 0,
-        frequency: 'monthly'
+        frequency: null
       },
     ]
 
@@ -98,36 +113,7 @@ const App = () => {
   return (
     <div>
       <h1>Budget Planner</h1>
-      <div>
-        <h2>Transport</h2>
-        <table>
-          <tbody>
-            <tr>
-              <td> <strong>Car Loan: </strong> </td>
-              <td>
-                Amount:
-                <input type="text" />
-              </td>
-              <td>
-                Frequency:
-                <select>
-                  {frequencies.map((frequency) => (
-                    <option key={frequency}>
-                      {frequency}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                Annually:
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <Category categories={categories} />
-      </div>
+      <Category categories={categories} frequencies={frequencies} />
     </div>
   );
 }
