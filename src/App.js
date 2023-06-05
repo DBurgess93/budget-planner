@@ -14,6 +14,14 @@ const Category = ({ categories }) => {
 }
 
 const App = () => {
+
+  const frequencies = [
+    "weekly",
+    "fortnightly",
+    "monthly",
+    "yearly"
+  ]
+
   const categories = {
     transport: [
       {
@@ -46,24 +54,79 @@ const App = () => {
         amount: 0,
         frequency: 'monthly'
       }
+    ],
+    home: [
+      {
+        name: 'Home Loan',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Rent',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Maintenance',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Insurance',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Assest',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Groceries',
+        amount: 0,
+        frequency: 'monthly'
+      },
+      {
+        name: 'Laundry',
+        amount: 0,
+        frequency: 'monthly'
+      },
     ]
+
   }
 
   return (
     <div>
       <h1>Budget Planner</h1>
       <div>
-        <Category categories={categories} />
-
-      </div>
-      <div>
+        <h2>Transport</h2>
         <table>
           <tbody>
             <tr>
-              <td></td>
+              <td> <strong>Car Loan: </strong> </td>
+              <td>
+                Amount:
+                <input type="text" />
+              </td>
+              <td>
+                Frequency:
+                <select>
+                  {frequencies.map((frequency) => (
+                    <option key={frequency}>
+                      {frequency}
+                    </option>
+                  ))}
+                </select>
+              </td>
+              <td>
+                Annually:
+              </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div>
+        <Category categories={categories} />
       </div>
     </div>
   );
