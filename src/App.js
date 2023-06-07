@@ -1,6 +1,12 @@
 import { useState } from 'react'
 
-const Category = ({ categories, frequencies, handleAmountChange, handleFrequencyChange }) => {
+const Category = ({
+  categories,
+  frequencies,
+  handleAmountChange,
+  handleFrequencyChange,
+  calculateTotalAnnualAmount
+}) => {
   return (
     <>
       {Object.keys(categories).map((categoryKey) => (
@@ -26,15 +32,15 @@ const Category = ({ categories, frequencies, handleAmountChange, handleFrequency
                       onChange={(event) => handleFrequencyChange(categoryKey, index, event.target.value)}
                     >
                       {frequencies.map((frequency) => (
-                        <option key={frequency} value={frequency}>
-                          {frequency}
+                        <option key={frequency.label} value={frequency.label}>
+                          {frequency.label}
                         </option>
                       ))}
                     </select>
                   </td>
                   <td>
                     Annually:
-                    <p>............</p>
+                    <p> {calculateTotalAnnualAmount(item.amount, item.frequency)} </p>
                   </td>
                 </tr>
               </tbody>
@@ -120,25 +126,47 @@ const App = () => {
     ]
   })
 
+  const [totalAnnualAmount, setTotalAnnualAmount] = useState(0)
+
+  const calculateTotalAnnualAmount = () => {
+    let totalAmount = 0;
+    Object.keys(categories).forEach((categoryKey) => {
+      categories[categoryKey].forEach((item) => {
+        const { amount, frequency } = item;
+        if (amount && frequency) {
+          const numericAmount = parseFloat(amount);
+          const selectedFrequency = frequencies.find((f) => f.label === frequency);
+          if (selectedFrequency) {
+            totalAmount += numericAmount * selectedFrequency.value;
+          }
+        }
+      });
+    });
+    return totalAmount;
+  };
+
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
     updatedCategories[categoryKey][itemIndex].amount = amount
     console.log(updatedCategories)
     setCategories(updatedCategories)
+    setTotalAnnualAmount(calculateTotalAnnualAmount)
   };
 
   const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
     const updatedCategories = { ...categories }
     updatedCategories[categoryKey][itemIndex].frequency = frequency
     console.log(updatedCategories)
+    setCategories(updatedCategories)
+    setTotalAnnualAmount(calculateTotalAnnualAmount)
   }
 
   const frequencies = [
-    "weekly",
-    "fortnightly",
-    "monthly",
-    "yearly"
-  ]
+    { label: 'Weekly', value: 52 },
+    { label: 'Fortnightly', value: 26 },
+    { label: 'Monthly', value: 12 },
+    { label: 'Yearly', value: 1 },
+  ];
 
   return (
     <div>
@@ -148,6 +176,7 @@ const App = () => {
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
         handleFrequencyChange={handleFrequencyChange}
+        calculateTotalAnnualAmount={calculateTotalAnnualAmount}
       />
     </div>
   );
