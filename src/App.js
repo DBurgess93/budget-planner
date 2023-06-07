@@ -126,22 +126,16 @@ const App = () => {
     ]
   })
 
-  const [totalAnnualAmount, setTotalAnnualAmount] = useState(0)
-
-  const calculateTotalAnnualAmount = () => {
+  const calculateTotalAnnualAmount = (amount, frequency) => {
     let totalAmount = 0;
-    Object.keys(categories).forEach((categoryKey) => {
-      categories[categoryKey].forEach((item) => {
-        const { amount, frequency } = item;
-        if (amount && frequency) {
-          const numericAmount = parseFloat(amount);
-          const selectedFrequency = frequencies.find((f) => f.label === frequency);
-          if (selectedFrequency) {
-            totalAmount += numericAmount * selectedFrequency.value;
-          }
-        }
-      });
-    });
+
+    if (amount && frequency) {
+      const numericAmount = parseFloat(amount);
+      const selectedFrequency = frequencies.find((f) => f.label === frequency);
+      if (selectedFrequency) {
+        totalAmount += numericAmount * selectedFrequency.value;
+      }
+    }
     return totalAmount;
   };
 
@@ -150,7 +144,6 @@ const App = () => {
     updatedCategories[categoryKey][itemIndex].amount = amount
     console.log(updatedCategories)
     setCategories(updatedCategories)
-    setTotalAnnualAmount(calculateTotalAnnualAmount)
   };
 
   const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
@@ -158,7 +151,6 @@ const App = () => {
     updatedCategories[categoryKey][itemIndex].frequency = frequency
     console.log(updatedCategories)
     setCategories(updatedCategories)
-    setTotalAnnualAmount(calculateTotalAnnualAmount)
   }
 
   const frequencies = [
