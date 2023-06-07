@@ -1,5 +1,6 @@
+import { useState } from 'react'
 
-const Category = ({ categories, frequencies }) => {
+const Category = ({ categories, frequencies, handleAmountChange, handleFrequencyChange }) => {
   return (
     <>
       {Object.keys(categories).map((categoryKey) => (
@@ -12,11 +13,18 @@ const Category = ({ categories, frequencies }) => {
                   <td>{item.name}</td>
                   <td>
                     Amount:
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={item.amount || ''}
+                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
+                    />
                   </td>
                   <td>
                     Frequency:
-                    <select>
+                    <select
+                      value={item.frequency || ''}
+                      onChange={(event) => handleFrequencyChange(categoryKey, index, event.target.value)}
+                    >
                       {frequencies.map((frequency) => (
                         <option key={frequency} value={frequency}>
                           {frequency}
@@ -40,6 +48,91 @@ const Category = ({ categories, frequencies }) => {
 
 const App = () => {
 
+  const [categories, setCategories] = useState({
+    transport: [
+      {
+        name: 'Car loan',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Registration',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Insurance',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Fuel',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Maintenance',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Public Transport',
+        amount: '',
+        frequency: null
+      }
+    ],
+    home: [
+      {
+        name: 'Home Loan',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Rent',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Maintenance',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Insurance',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Assest',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Groceries',
+        amount: '',
+        frequency: null
+      },
+      {
+        name: 'Laundry',
+        amount: '',
+        frequency: null
+      },
+    ]
+  })
+
+  const handleAmountChange = (categoryKey, itemIndex, amount) => {
+    const updatedCategories = { ...categories }
+    updatedCategories[categoryKey][itemIndex].amount = amount
+    console.log(updatedCategories)
+    setCategories(updatedCategories)
+  };
+
+  const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
+    const updatedCategories = { ...categories }
+    updatedCategories[categoryKey][itemIndex].frequency = frequency
+    console.log(updatedCategories)
+  }
+
   const frequencies = [
     "weekly",
     "fortnightly",
@@ -47,83 +140,15 @@ const App = () => {
     "yearly"
   ]
 
-  const categories = {
-    transport: [
-      {
-        name: 'Car loan',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Registration',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Insurance',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Fuel',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Maintenance',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Public Transport',
-        amount: 0,
-        frequency: null
-      }
-    ],
-    home: [
-      {
-        name: 'Home Loan',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Rent',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Maintenance',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Insurance',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Assest',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Groceries',
-        amount: 0,
-        frequency: null
-      },
-      {
-        name: 'Laundry',
-        amount: 0,
-        frequency: null
-      },
-    ]
-
-  }
-
   return (
     <div>
       <h1>Budget Planner</h1>
-      <Category categories={categories} frequencies={frequencies} />
+      <Category
+        categories={categories}
+        frequencies={frequencies}
+        handleAmountChange={handleAmountChange}
+        handleFrequencyChange={handleFrequencyChange}
+      />
     </div>
   );
 }
