@@ -5,7 +5,6 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
-  calculateTotalAnnualAmount
 }) => {
   return (
     <>
@@ -40,7 +39,7 @@ const Category = ({
                   </td>
                   <td>
                     Annually:
-                    <p> {calculateTotalAnnualAmount(item.amount, item.frequency)} </p>
+                    <p> {item.annualAmount} </p>
                   </td>
                 </tr>
               </tbody>
@@ -127,28 +126,31 @@ const App = () => {
   })
 
   const calculateTotalAnnualAmount = (amount, frequency) => {
-    let totalAmount = 0;
-
-    if (amount && frequency) {
-      const numericAmount = parseFloat(amount);
-      const selectedFrequency = frequencies.find((f) => f.label === frequency);
-      if (selectedFrequency) {
-        totalAmount += numericAmount * selectedFrequency.value;
-      }
+    const numericAmount = parseFloat(amount)
+    const selectedFrequency = frequencies.find((f) => f.label === frequency)
+    if (selectedFrequency) {
+      return numericAmount * selectedFrequency.value
     }
-    return totalAmount;
+    return 0;
   };
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
-    updatedCategories[categoryKey][itemIndex].amount = amount
+    const item = updatedCategories[categoryKey][itemIndex]
+    item.amount = amount
+    if (!item.frequency || item.frequency === 'Weekly') {
+      item.frequency = 'Weekly'
+      item.annualAmount = calculateTotalAnnualAmount(amount, 'Weekly')
+    }
     console.log(updatedCategories)
     setCategories(updatedCategories)
   };
 
   const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
     const updatedCategories = { ...categories }
-    updatedCategories[categoryKey][itemIndex].frequency = frequency
+    const item = updatedCategories[categoryKey][itemIndex]
+    item.frequency = frequency
+    item.annualAmount = calculateTotalAnnualAmount(item.amount, frequency)
     console.log(updatedCategories)
     setCategories(updatedCategories)
   }
@@ -168,7 +170,6 @@ const App = () => {
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
         handleFrequencyChange={handleFrequencyChange}
-        calculateTotalAnnualAmount={calculateTotalAnnualAmount}
       />
     </div>
   );
