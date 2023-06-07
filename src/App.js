@@ -3,7 +3,7 @@ const Category = ({ categories, frequencies }) => {
   return (
     <>
       {Object.keys(categories).map((categoryKey) => (
-        <div key={categoryKey}>
+        <div key={categoryKey} className="cat-table">
           <h2>{categoryKey}</h2>
           {categories[categoryKey].map((item, index) => (
             <table key={index}>
@@ -26,6 +26,7 @@ const Category = ({ categories, frequencies }) => {
                   </td>
                   <td>
                     Annually:
+                    <p>............</p>
                   </td>
                 </tr>
               </tbody>
