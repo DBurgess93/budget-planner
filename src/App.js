@@ -5,14 +5,14 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
-  calculateTotalExpenses,
-  calculateCategoryTotals,
+  totalAllCategories,
   categoryTotals
 }) => {
   return (
     <>
       {Object.keys(categories).map((categoryKey) => (
         <div key={categoryKey} className="cat-table">
+          <p>Total Expenses: $ {totalAllCategories} </p>
           <h2>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)}</h2>
           {categories[categoryKey].map((item, index) => (
             <table key={index}>
@@ -58,7 +58,6 @@ const Category = ({
           </table>
         </div>
       ))}
-      <p>Total Expenses: $</p>
     </>
   )
 }
@@ -285,13 +284,13 @@ const App = () => {
     return 0;
   };
 
-  const calculateTotalExpenses = (categories) => {
+  const calculateTotalExpenses = (categoryTotals) => {
     let totalSum = 0
 
-    Object.values(categories).forEach((categoryArray) => {
-      categoryArray.forEach((item) => {
-        totalSum += item.annualAmount
-      })
+    categoryTotals.forEach((category) => {
+      console.log(category)
+      totalSum += category || 0
+      console.log(totalSum)
     })
 
     return totalSum
@@ -315,7 +314,7 @@ const App = () => {
   };
 
   const categoryTotals = calculateCategoryTotals(categories);
-
+  const totalAllCategories = Object.values(categoryTotals).reduce((total, value) => total + value, 0)
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
@@ -357,6 +356,7 @@ const App = () => {
         calculateTotalExpenses={calculateTotalExpenses}
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
+        totalAllCategories={totalAllCategories}
       />
     </div>
   );
