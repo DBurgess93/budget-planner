@@ -5,14 +5,12 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
-  totalAllCategories,
   categoryTotals
 }) => {
   return (
     <>
       {Object.keys(categories).map((categoryKey) => (
         <div key={categoryKey} className="cat-table">
-          <p>Total Expenses: $ {totalAllCategories} </p>
           <h2>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)}</h2>
           {categories[categoryKey].map((item, index) => (
             <table key={index}>
@@ -234,27 +232,27 @@ const App = () => {
         amount: '',
         frequency: null,
         annualAmount: 0
-      },{
+      }, {
         name: 'Stan',
         amount: '',
         frequency: null,
         annualAmount: 0
-      },{
+      }, {
         name: 'Prime',
         amount: '',
         frequency: null,
         annualAmount: 0
-      },{
+      }, {
         name: 'Disney',
         amount: '',
         frequency: null,
         annualAmount: 0
-      },{
+      }, {
         name: 'Binge',
         amount: '',
         frequency: null,
         annualAmount: 0
-      },{
+      }, {
         name: 'Kayo',
         amount: '',
         frequency: null,
@@ -346,8 +344,9 @@ const App = () => {
   ];
 
   return (
-    <div>
+    <div className="container">
       <h1>Budget Planner</h1>
+      <h2>Total Expenses: $ {totalAllCategories} </h2>
       <Category
         categories={categories}
         frequencies={frequencies}
@@ -356,7 +355,6 @@ const App = () => {
         calculateTotalExpenses={calculateTotalExpenses}
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
-        totalAllCategories={totalAllCategories}
       />
     </div>
   );
