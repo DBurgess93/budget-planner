@@ -159,6 +159,7 @@ const App = () => {
     { label: 'Weekly', value: 52 },
     { label: 'Fortnightly', value: 26 },
     { label: 'Monthly', value: 12 },
+    { label: 'Quarterly', value: 4},
     { label: 'Yearly', value: 1 },
   ];
 
