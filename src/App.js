@@ -5,7 +5,9 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
-  calculateCategoryTotals
+  calculateTotalExpenses,
+  calculateCategoryTotals,
+  categoryTotals
 }) => {
   return (
     <>
@@ -46,9 +48,10 @@ const Category = ({
               </tbody>
             </table>
           ))}
+          <p> {categoryKey} total: $ {calculateCategoryTotals[categoryKey]} </p>
         </div>
       ))}
-      <p>Total Expenses: ${calculateCategoryTotals(categories)}</p>
+      <p>Total Expenses: ${calculateTotalExpenses(categories)}</p>
     </>
   )
 }
@@ -148,7 +151,7 @@ const App = () => {
     return 0;
   };
 
-  const calculateCategoryTotals = (categories) => {
+  const calculateTotalExpenses = (categories) => {
     let totalSum = 0
 
     Object.values(categories).forEach((categoryArray) => {
@@ -160,6 +163,25 @@ const App = () => {
     return totalSum
   };
 
+  const calculateCategoryTotals = (categories) => {
+    const categoryTotals = {}
+
+    Object.keys(categories).forEach((categoryKey) => {
+      const categoryArray = categories[categoryKey]
+      let categoryTotal = 0
+
+      categoryArray.forEach((item) => {
+        categoryTotal += item.annualAmount
+
+        categoryTotals[categoryKey] = categoryTotal
+      })
+      console.log(categoryTotals)
+      return categoryTotals
+    })
+  }
+
+  const categoryTotals = calculateCategoryTotals(categories)
+
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
     const item = updatedCategories[categoryKey][itemIndex]
@@ -170,6 +192,7 @@ const App = () => {
     }
     console.log(updatedCategories)
     setCategories(updatedCategories)
+    calculateCategoryTotals(categories)
   };
 
   const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
@@ -179,6 +202,7 @@ const App = () => {
     item.annualAmount = calculateTotalAnnualAmount(item.amount, frequency)
     console.log(updatedCategories)
     setCategories(updatedCategories)
+    calculateCategoryTotals(categories)
   }
 
   const frequencies = [
@@ -197,7 +221,9 @@ const App = () => {
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
         handleFrequencyChange={handleFrequencyChange}
+        calculateTotalExpenses={calculateTotalExpenses}
         calculateCategoryTotals={calculateCategoryTotals}
+        categoryTotals={categoryTotals}
       />
     </div>
   );
