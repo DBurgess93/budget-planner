@@ -5,6 +5,7 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
+  calculateCategoryTotals
 }) => {
   return (
     <>
@@ -47,12 +48,12 @@ const Category = ({
           ))}
         </div>
       ))}
+      <p>Total Expenses: ${calculateCategoryTotals(categories)}</p>
     </>
   )
 }
 
 const App = () => {
-
   const [categories, setCategories] = useState({
     transport: [
       {
@@ -147,21 +148,16 @@ const App = () => {
     return 0;
   };
 
-  const calculateCategoryTotals = () => {
-    const categoryTotals = {};
+  const calculateCategoryTotals = (categories) => {
+    let totalSum = 0
 
-    Object.keys(categories).forEach((categoryKey) => {
-      const categoryItems = categories[categoryKey];
-      let categoryTotal = 0;
+    Object.values(categories).forEach((categoryArray) => {
+      categoryArray.forEach((item) => {
+        totalSum += item.annualAmount
+      })
+    })
 
-      categoryItems.forEach((item) => {
-        categoryTotal += item.annualAmount || 0;
-      });
-
-      categoryTotals[categoryKey] = categoryTotal;
-    });
-
-    return categoryTotals;
+    return totalSum
   };
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
@@ -201,6 +197,7 @@ const App = () => {
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
         handleFrequencyChange={handleFrequencyChange}
+        calculateCategoryTotals={calculateCategoryTotals}
       />
     </div>
   );
