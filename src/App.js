@@ -58,69 +58,82 @@ const App = () => {
       {
         name: 'Car loan',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Registration',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Insurance',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Fuel',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Maintenance',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Public Transport',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       }
     ],
     home: [
       {
         name: 'Home Loan',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Rent',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Maintenance',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Insurance',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Assest',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Groceries',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
       {
         name: 'Laundry',
         amount: '',
-        frequency: null
+        frequency: null,
+        annualAmount: 0
       },
     ]
   })
@@ -132,6 +145,23 @@ const App = () => {
       return numericAmount * selectedFrequency.value
     }
     return 0;
+  };
+
+  const calculateCategoryTotals = () => {
+    const categoryTotals = {};
+
+    Object.keys(categories).forEach((categoryKey) => {
+      const categoryItems = categories[categoryKey];
+      let categoryTotal = 0;
+
+      categoryItems.forEach((item) => {
+        categoryTotal += item.annualAmount || 0;
+      });
+
+      categoryTotals[categoryKey] = categoryTotal;
+    });
+
+    return categoryTotals;
   };
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
