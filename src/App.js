@@ -48,10 +48,10 @@ const Category = ({
               </tbody>
             </table>
           ))}
-          <p> {categoryKey} total: $ {calculateCategoryTotals[categoryKey]} </p>
+          <p> {categoryKey} total: $ {categoryTotals[categoryKey]} </p>
         </div>
       ))}
-      <p>Total Expenses: ${calculateTotalExpenses(categories)}</p>
+      <p>Total Expenses: $</p>
     </>
   )
 }
@@ -164,23 +164,24 @@ const App = () => {
   };
 
   const calculateCategoryTotals = (categories) => {
-    const categoryTotals = {}
+    const categoryTotals = {};
 
     Object.keys(categories).forEach((categoryKey) => {
-      const categoryArray = categories[categoryKey]
-      let categoryTotal = 0
+      const categoryItems = categories[categoryKey];
+      let categoryTotal = 0;
 
-      categoryArray.forEach((item) => {
-        categoryTotal += item.annualAmount
+      categoryItems.forEach((item) => {
+        categoryTotal += item.annualAmount || 0;
+      });
 
-        categoryTotals[categoryKey] = categoryTotal
-      })
-      console.log(categoryTotals)
-      return categoryTotals
-    })
-  }
+      categoryTotals[categoryKey] = categoryTotal;
+    });
 
-  const categoryTotals = calculateCategoryTotals(categories)
+    return categoryTotals;
+  };
+
+  const categoryTotals = calculateCategoryTotals(categories);
+
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
@@ -190,7 +191,6 @@ const App = () => {
       item.frequency = 'Weekly'
       item.annualAmount = calculateTotalAnnualAmount(amount, 'Weekly')
     }
-    console.log(updatedCategories)
     setCategories(updatedCategories)
     calculateCategoryTotals(categories)
   };
@@ -200,7 +200,6 @@ const App = () => {
     const item = updatedCategories[categoryKey][itemIndex]
     item.frequency = frequency
     item.annualAmount = calculateTotalAnnualAmount(item.amount, frequency)
-    console.log(updatedCategories)
     setCategories(updatedCategories)
     calculateCategoryTotals(categories)
   }
