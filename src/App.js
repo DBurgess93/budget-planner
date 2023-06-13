@@ -13,20 +13,12 @@ const Category = ({
     <>
       {Object.keys(categories).map((categoryKey) => (
         <div key={categoryKey} className="cat-table">
-          <h2>{categoryKey}</h2>
+          <h2>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)}</h2>
           {categories[categoryKey].map((item, index) => (
             <table key={index}>
               <tbody>
                 <tr>
                   <td>{item.name}</td>
-                  <td>
-                    Amount:
-                    <input
-                      type="text"
-                      value={item.amount || ''}
-                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
-                    />
-                  </td>
                   <td>
                     Frequency:
                     <select
@@ -41,6 +33,14 @@ const Category = ({
                     </select>
                   </td>
                   <td>
+                    Amount:
+                    <input
+                      type="text"
+                      value={item.amount || ''}
+                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
+                    />
+                  </td>
+                  <td>
                     Annually:
                     <p> {item.annualAmount} </p>
                   </td>
@@ -48,7 +48,14 @@ const Category = ({
               </tbody>
             </table>
           ))}
-          <p> {categoryKey} total: $ {categoryTotals[categoryKey]} </p>
+          <table>
+            <tbody>
+              <tr>
+                <td>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)} Total:</td>
+                <td>${categoryTotals[categoryKey]}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       ))}
       <p>Total Expenses: $</p>
@@ -208,7 +215,7 @@ const App = () => {
     { label: 'Weekly', value: 52 },
     { label: 'Fortnightly', value: 26 },
     { label: 'Monthly', value: 12 },
-    { label: 'Quarterly', value: 4},
+    { label: 'Quarterly', value: 4 },
     { label: 'Yearly', value: 1 },
   ];
 

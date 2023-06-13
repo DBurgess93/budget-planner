@@ -1,13 +1,18 @@
 .cat-table {
   table {
+    table-layout: fixed;
     width: auto;
+    max-width: 380px;
     border: 1px solid #9393bd;
     border-radius: 4px;
     background-color: #a8e4cc;
     margin: 2px;
   }
   td {
-    width: 150px;
+    width: calc(100%/4);
+      input {
+        width: 50px;
+      }
   }
   p {
     margin: 0;
