@@ -146,6 +146,133 @@ const App = () => {
         frequency: null,
         annualAmount: 0
       },
+    ],
+    utilities: [
+      {
+        name: 'Mobile Phone',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Gas',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Electricity',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Internet',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Water',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Cleaners',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+    ],
+    health: [
+      {
+        name: 'Health Insurance',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Life Insurance',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Dental',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Medical',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Chemist',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Optical',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Fitness',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+    ],
+    entertainment: [
+      {
+        name: 'Netflix',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },{
+        name: 'Stan',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },{
+        name: 'Prime',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },{
+        name: 'Disney',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },{
+        name: 'Binge',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },{
+        name: 'Kayo',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Spotify',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
+      {
+        name: 'Audible',
+        amount: '',
+        frequency: null,
+        annualAmount: 0
+      },
     ]
   })
 
