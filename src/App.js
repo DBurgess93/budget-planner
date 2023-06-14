@@ -18,6 +18,14 @@ const Category = ({
                 <tr>
                   <td>{item.name}</td>
                   <td>
+                    Amount:
+                    <input
+                      type="text"
+                      value={item.amount || ''}
+                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
+                    />
+                  </td>
+                  <td>
                     Frequency:
                     <select
                       value={item.frequency || ''}
@@ -29,14 +37,6 @@ const Category = ({
                         </option>
                       ))}
                     </select>
-                  </td>
-                  <td>
-                    Amount:
-                    <input
-                      type="text"
-                      value={item.amount || ''}
-                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
-                    />
                   </td>
                   <td>
                     Annually:
