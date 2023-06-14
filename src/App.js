@@ -60,6 +60,16 @@ const Category = ({
   )
 }
 
+const NextCatButton = ({handleNextCatChange}) => {
+  return (
+    <button
+      onClick={handleNextCatChange}
+    >
+      Next Category
+    </button>
+  )
+}
+
 const App = () => {
   const [categories, setCategories] = useState({
     transport: [
@@ -336,6 +346,10 @@ const App = () => {
     calculateCategoryTotals(categories)
   }
 
+  const handleNextCatChange = () => {
+    let i = 0
+  }
+
   const frequencies = [
     { label: 'Weekly', value: 52 },
     { label: 'Fortnightly', value: 26 },
@@ -349,6 +363,7 @@ const App = () => {
       <h1>Budget Planner</h1>
       <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
       <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
+      <NextCatButton handleNextCatChange={handleNextCatChange} />
       <Category
         categories={categories}
         frequencies={frequencies}
@@ -359,6 +374,7 @@ const App = () => {
         categoryTotals={categoryTotals}
       />
       <h2>Total Yearly Expenses: $ {totalAllCategories} </h2>
+
     </div>
   );
 }
