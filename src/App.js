@@ -40,7 +40,7 @@ const Category = ({
                   </td>
                   <td>
                     Annually:
-                    <p> {item.annualAmount} </p>
+                    <p> {item.annualAmount.toFixed(2)} </p>
                   </td>
                 </tr>
               </tbody>
@@ -126,7 +126,7 @@ const App = () => {
         annualAmount: 0
       },
       {
-        name: 'Assest',
+        name: 'Assets',
         amount: '',
         frequency: null,
         annualAmount: 0
@@ -313,6 +313,7 @@ const App = () => {
 
   const categoryTotals = calculateCategoryTotals(categories);
   const totalAllCategories = Object.values(categoryTotals).reduce((total, value) => total + value, 0)
+  const totalAllWeekly = (totalAllCategories / 52)
 
   const handleAmountChange = (categoryKey, itemIndex, amount) => {
     const updatedCategories = { ...categories }
@@ -346,7 +347,8 @@ const App = () => {
   return (
     <div className="container">
       <h1>Budget Planner</h1>
-      <h2>Total Expenses: $ {totalAllCategories} </h2>
+      <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
+      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
       <Category
         categories={categories}
         frequencies={frequencies}
@@ -356,6 +358,7 @@ const App = () => {
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
       />
+      <h2>Total Yearly Expenses: $ {totalAllCategories} </h2>
     </div>
   );
 }
