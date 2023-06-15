@@ -55,8 +55,8 @@ const Category = ({
         <table>
           <tbody>
             <tr>
-              <td>{showCategory} Total:</td>
-              <td>${categoryTotals[showCategory]}</td>
+              <td>Total:</td>
+              <td>${categoryTotals[currentCategory.name]}</td>
             </tr>
           </tbody>
         </table>
@@ -78,6 +78,15 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
       >
         Next Category
       </button>
+    </div>
+  )
+}
+
+const RunningTotals = ({totalAllWeekly, totalAllCategories}) => {
+  return (
+    <div>
+      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
+      <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
     </div>
   )
 }
@@ -128,7 +137,7 @@ const App = () => {
     },
     {
       name: 'Home',
-      display: false,
+      display: true,
       items: [
         {
           name: 'Home Loan',
@@ -176,7 +185,7 @@ const App = () => {
     },
     {
       name: 'Utilities',
-      display: false,
+      display: true,
       items: [
         {
           name: 'Mobile Phone',
@@ -218,7 +227,7 @@ const App = () => {
     },
     {
       name: 'Health',
-      display: false,
+      display: true,
       items: [
         {
           name: 'Health Insurance',
@@ -266,7 +275,7 @@ const App = () => {
     },
     {
       name: 'Entertainment',
-      display: false,
+      display: true,
       items: [
         {
           name: 'Netflix',
@@ -439,8 +448,10 @@ const App = () => {
         categoryTotals={categoryTotals}
         showCategory={showCategory}
       />
-      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
-      <h2>Total Yearly Expenses: $ {totalAllCategories} </h2>
+      <RunningTotals
+        totalAllWeekly={totalAllWeekly}
+        totalAllCategories={totalAllCategories}
+      />
     </div>
   );
 }
