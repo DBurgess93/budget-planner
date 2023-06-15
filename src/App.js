@@ -409,7 +409,7 @@ const App = () => {
 
   const handleBackCategory = () => {
     const currentCatIndex = showCategory
-    const backCatIndex = currentCatIndex - 1 >= 0 ? currentCatIndex - 1 : categories.length - 1
+    const backCatIndex = currentCatIndex - 1 >= 0 ? currentCatIndex - 1 : 0
     setShowCategory(backCatIndex)
     console.log(backCatIndex)
   }
