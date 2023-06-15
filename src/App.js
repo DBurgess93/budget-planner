@@ -65,13 +65,20 @@ const Category = ({
   )
 }
 
-const NextCatButton = ({ handleNextCategory, categories }) => {
+const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
   return (
-    <button
-      onClick={handleNextCategory}
-    >
-      Next Category
-    </button>
+    <div>
+      <button
+        onClick={handleBackCategory}
+      >
+        Back One
+      </button>
+      <button
+        onClick={handleNextCategory}
+      >
+        Next Category
+      </button>
+    </div>
   )
 }
 
@@ -400,6 +407,13 @@ const App = () => {
     console.log(nextCatIndex)
   }
 
+  const handleBackCategory = () => {
+    const currentCatIndex = showCategory
+    const backCatIndex = (currentCatIndex - 1) % categories.length
+    setShowCategory(backCatIndex)
+    console.log(backCatIndex)
+  }
+
   const frequencies = [
     { label: 'Weekly', value: 52 },
     { label: 'Fortnightly', value: 26 },
@@ -411,9 +425,9 @@ const App = () => {
   return (
     <div className="container">
       <h1>Budget Planner</h1>
-      <NextCatButton
+      <ToggleCategoryButtons
         handleNextCategory={handleNextCategory}
-        categories={categories}
+        handleBackCategory={handleBackCategory}
       />
       <Category
         categories={categories}
