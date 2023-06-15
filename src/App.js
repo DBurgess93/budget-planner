@@ -16,51 +16,51 @@ const Category = ({
 
   return (
     <>
-    <div className="cat-table">
-          <h2>{currentCategory.name}</h2>
-          {currentCategory.items.map((item, index) => (
-            <table key={index}>
-              <tbody>
-                <tr>
-                  <td>{item.name}</td>
-                  <td>
-                    Amount:
-                    <input
-                      type="text"
-                      value={item.amount || ''}
-                      onChange={(event) => handleAmountChange(showCategory, index, event.target.value)}
-                    />
-                  </td>
-                  <td>
-                    Frequency:
-                    <select
-                      value={item.frequency || ''}
-                      onChange={(event) => handleFrequencyChange(showCategory, index, event.target.value)}
-                    >
-                      {frequencies.map((frequency) => (
-                        <option key={frequency.label} value={frequency.label}>
-                          {frequency.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>
-                    Annually:
-                    <p> {item.annualAmount.toFixed(2)} </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          ))}
-          <table>
+      <div className="cat-table">
+        <h2>{currentCategory.name}</h2>
+        {currentCategory.items.map((item, index) => (
+          <table key={index}>
             <tbody>
               <tr>
-                <td>{showCategory} Total:</td>
-                <td>${categoryTotals[showCategory]}</td>
+                <td>{item.name}</td>
+                <td>
+                  Amount:
+                  <input
+                    type="text"
+                    value={item.amount || ''}
+                    onChange={(event) => handleAmountChange(showCategory, index, event.target.value)}
+                  />
+                </td>
+                <td>
+                  Frequency:
+                  <select
+                    value={item.frequency || ''}
+                    onChange={(event) => handleFrequencyChange(showCategory, index, event.target.value)}
+                  >
+                    {frequencies.map((frequency) => (
+                      <option key={frequency.label} value={frequency.label}>
+                        {frequency.label}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  Annually:
+                  <p> {item.annualAmount.toFixed(2)} </p>
+                </td>
               </tr>
             </tbody>
           </table>
-        </div>
+        ))}
+        <table>
+          <tbody>
+            <tr>
+              <td>{showCategory} Total:</td>
+              <td>${categoryTotals[showCategory]}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }
@@ -352,25 +352,43 @@ const App = () => {
   const totalAllCategories = Object.values(categoryTotals).reduce((total, value) => total + value, 0)
   const totalAllWeekly = (totalAllCategories / 52)
 
-  const handleAmountChange = (categoryKey, itemIndex, amount) => {
-    const updatedCategories = { ...categories }
-    const item = updatedCategories[categoryKey][itemIndex]
-    item.amount = amount
-    if (!item.frequency || item.frequency === 'Weekly') {
-      item.frequency = 'Weekly'
-      item.annualAmount = calculateTotalAnnualAmount(amount, 'Weekly')
+  const handleAmountChange = (categoryIndex, itemIndex, amount) => {
+    const updatedCategories = [...categories]
+    const category = updatedCategories[categoryIndex]
+    if (category && category.items.length > itemIndex) {
+      const item = category.items[itemIndex]
+      if (item) {
+        item.amount = amount;
+        if (!item.frequency || item.frequency === 'Weekly') {
+          item.frequency = 'Weekly'
+          item.annualAmount = calculateTotalAnnualAmount(amount, 'Weekly')
+        }
+        setCategories(updatedCategories)
+        calculateCategoryTotals(updatedCategories)
+      } else {
+        console.error(`Item at index ${itemIndex} is undefined`)
+      }
+    } else {
+      console.error(`Category at index ${categoryIndex} not found or item index out of range`)
     }
-    setCategories(updatedCategories)
-    calculateCategoryTotals(categories)
-  };
+  }
 
-  const handleFrequencyChange = (categoryKey, itemIndex, frequency) => {
-    const updatedCategories = { ...categories }
-    const item = updatedCategories[categoryKey][itemIndex]
-    item.frequency = frequency
-    item.annualAmount = calculateTotalAnnualAmount(item.amount, frequency)
-    setCategories(updatedCategories)
-    calculateCategoryTotals(categories)
+  const handleFrequencyChange = (categoryIndex, itemIndex, frequency) => {
+    const updatedCategories = [...categories]
+    const category = updatedCategories[categoryIndex]
+    if (category && category.items.length > itemIndex) {
+      const item = category.items[itemIndex]
+      if (item) {
+        item.frequency = frequency
+        item.annualAmount = calculateTotalAnnualAmount(item.amount, frequency)
+        setCategories(updatedCategories)
+        calculateCategoryTotals(updatedCategories)
+      } else {
+        console.error(`Item at index ${itemIndex} is undefined`)
+      }
+    } else {
+      console.error(`Category at index ${categoryIndex} not found or item index out of range`)
+    }
   }
 
   const [showCategory, setShowCategory] = useState(0)
@@ -392,8 +410,6 @@ const App = () => {
   return (
     <div className="container">
       <h1>Budget Planner</h1>
-      <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
-      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
       <NextCatButton
         handleNextCategory={handleNextCategory}
         categories={categories}
@@ -408,8 +424,8 @@ const App = () => {
         categoryTotals={categoryTotals}
         showCategory={showCategory}
       />
+      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
       <h2>Total Yearly Expenses: $ {totalAllCategories} </h2>
-
     </div>
   );
 }
