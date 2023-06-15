@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import CategorySummary from './CategorySummary'
 
 const Category = ({
   categories,
@@ -451,6 +452,16 @@ const App = () => {
       <RunningTotals
         totalAllWeekly={totalAllWeekly}
         totalAllCategories={totalAllCategories}
+      />
+      <CategorySummary
+        categories={categories}
+        frequencies={frequencies}
+        handleAmountChange={handleAmountChange}
+        handleFrequencyChange={handleFrequencyChange}
+        calculateTotalExpenses={calculateTotalExpenses}
+        calculateCategoryTotals={calculateCategoryTotals}
+        categoryTotals={categoryTotals}
+        showCategory={showCategory}
       />
     </div>
   );
