@@ -5,14 +5,20 @@ const Category = ({
   frequencies,
   handleAmountChange,
   handleFrequencyChange,
-  categoryTotals
+  categoryTotals,
+  showCategory
 }) => {
+  const currentCategory = categories[showCategory]
+
+  if (!currentCategory) {
+    return null
+  }
+
   return (
     <>
-      {Object.keys(categories).map((categoryKey) => (
-        <div key={categoryKey} className="cat-table">
-          <h2>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)}</h2>
-          {categories[categoryKey].map((item, index) => (
+    <div className="cat-table">
+          <h2>{currentCategory.name}</h2>
+          {currentCategory.items.map((item, index) => (
             <table key={index}>
               <tbody>
                 <tr>
@@ -22,14 +28,14 @@ const Category = ({
                     <input
                       type="text"
                       value={item.amount || ''}
-                      onChange={(event) => handleAmountChange(categoryKey, index, event.target.value)}
+                      onChange={(event) => handleAmountChange(showCategory, index, event.target.value)}
                     />
                   </td>
                   <td>
                     Frequency:
                     <select
                       value={item.frequency || ''}
-                      onChange={(event) => handleFrequencyChange(categoryKey, index, event.target.value)}
+                      onChange={(event) => handleFrequencyChange(showCategory, index, event.target.value)}
                     >
                       {frequencies.map((frequency) => (
                         <option key={frequency.label} value={frequency.label}>
@@ -49,21 +55,20 @@ const Category = ({
           <table>
             <tbody>
               <tr>
-                <td>{categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1)} Total:</td>
-                <td>${categoryTotals[categoryKey]}</td>
+                <td>{showCategory} Total:</td>
+                <td>${categoryTotals[showCategory]}</td>
               </tr>
             </tbody>
           </table>
         </div>
-      ))}
     </>
   )
 }
 
-const NextCatButton = ({handleNextCatChange}) => {
+const NextCatButton = ({ handleNextCategory, categories }) => {
   return (
     <button
-      onClick={handleNextCatChange}
+      onClick={handleNextCategory}
     >
       Next Category
     </button>
@@ -71,217 +76,238 @@ const NextCatButton = ({handleNextCatChange}) => {
 }
 
 const App = () => {
-  const [categories, setCategories] = useState({
-    transport: [
-      {
-        name: 'Car loan',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Registration',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Insurance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Fuel',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Maintenance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Public Transport',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }
-    ],
-    home: [
-      {
-        name: 'Home Loan',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Rent',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Maintenance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Insurance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Assets',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Groceries',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Laundry',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-    ],
-    utilities: [
-      {
-        name: 'Mobile Phone',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Gas',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Electricity',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Internet',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Water',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Cleaners',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-    ],
-    health: [
-      {
-        name: 'Health Insurance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Life Insurance',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Dental',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Medical',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Chemist',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Optical',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Fitness',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-    ],
-    entertainment: [
-      {
-        name: 'Netflix',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }, {
-        name: 'Stan',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }, {
-        name: 'Prime',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }, {
-        name: 'Disney',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }, {
-        name: 'Binge',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      }, {
-        name: 'Kayo',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Spotify',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-      {
-        name: 'Audible',
-        amount: '',
-        frequency: null,
-        annualAmount: 0
-      },
-    ]
-  })
+  const [categories, setCategories] = useState([
+    {
+      name: 'transport',
+      display: true,
+      items: [
+        {
+          name: 'Car loan',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Registration',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Insurance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Fuel',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Maintenance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Public Transport',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }
+      ]
+    },
+    {
+      name: 'home',
+      display: false,
+      items: [
+        {
+          name: 'Home Loan',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Rent',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Maintenance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Insurance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Assets',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Groceries',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Laundry',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+      ]
+    },
+    {
+      name: 'utilities',
+      display: false,
+      items: [
+        {
+          name: 'Mobile Phone',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Gas',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Electricity',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Internet',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Water',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Cleaners',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+      ]
+    },
+    {
+      name: 'health',
+      display: false,
+      items: [
+        {
+          name: 'Health Insurance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Life Insurance',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Dental',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Medical',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Chemist',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Optical',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Fitness',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+      ]
+    },
+    {
+      name: 'entertainment',
+      display: false,
+      items: [
+        {
+          name: 'Netflix',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }, {
+          name: 'Stan',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }, {
+          name: 'Prime',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }, {
+          name: 'Disney',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }, {
+          name: 'Binge',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        }, {
+          name: 'Kayo',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Spotify',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+        {
+          name: 'Audible',
+          amount: '',
+          frequency: null,
+          annualAmount: 0
+        },
+      ]
+    },
+
+  ])
 
   const calculateTotalAnnualAmount = (amount, frequency) => {
     const numericAmount = parseFloat(amount)
@@ -307,18 +333,19 @@ const App = () => {
   const calculateCategoryTotals = (categories) => {
     const categoryTotals = {};
 
-    Object.keys(categories).forEach((categoryKey) => {
-      const categoryItems = categories[categoryKey];
+    categories.forEach((category) => {
+      const { name, items } = category
+
       let categoryTotal = 0;
 
-      categoryItems.forEach((item) => {
+      items.forEach((item) => {
         categoryTotal += item.annualAmount || 0;
       });
 
-      categoryTotals[categoryKey] = categoryTotal;
+      categoryTotals[name] = categoryTotal
     });
 
-    return categoryTotals;
+    return categoryTotals
   };
 
   const categoryTotals = calculateCategoryTotals(categories);
@@ -346,8 +373,12 @@ const App = () => {
     calculateCategoryTotals(categories)
   }
 
-  const handleNextCatChange = () => {
-    let i = 0
+  const [showCategory, setShowCategory] = useState(0)
+
+  const handleNextCategory = () => {
+    const currentCat = categories[0]
+    setShowCategory(currentCat)
+    console.log(currentCat)
   }
 
   const frequencies = [
@@ -363,7 +394,10 @@ const App = () => {
       <h1>Budget Planner</h1>
       <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
       <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
-      <NextCatButton handleNextCatChange={handleNextCatChange} />
+      <NextCatButton
+        handleNextCategory={handleNextCategory}
+        categories={categories}
+      />
       <Category
         categories={categories}
         frequencies={frequencies}
@@ -372,6 +406,7 @@ const App = () => {
         calculateTotalExpenses={calculateTotalExpenses}
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
+        showCategory={showCategory}
       />
       <h2>Total Yearly Expenses: $ {totalAllCategories} </h2>
 
