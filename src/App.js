@@ -71,7 +71,7 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
       <button
         onClick={handleBackCategory}
       >
-        Back One
+        Previous Category
       </button>
       <button
         onClick={handleNextCategory}
@@ -409,7 +409,7 @@ const App = () => {
 
   const handleBackCategory = () => {
     const currentCatIndex = showCategory
-    const backCatIndex = (currentCatIndex - 1) % categories.length
+    const backCatIndex = currentCatIndex - 1 >= 0 ? currentCatIndex - 1 : categories.length - 1
     setShowCategory(backCatIndex)
     console.log(backCatIndex)
   }
