@@ -78,7 +78,7 @@ const NextCatButton = ({ handleNextCategory, categories }) => {
 const App = () => {
   const [categories, setCategories] = useState([
     {
-      name: 'transport',
+      name: 'Transport',
       display: true,
       items: [
         {
@@ -120,7 +120,7 @@ const App = () => {
       ]
     },
     {
-      name: 'home',
+      name: 'Home',
       display: false,
       items: [
         {
@@ -168,7 +168,7 @@ const App = () => {
       ]
     },
     {
-      name: 'utilities',
+      name: 'Utilities',
       display: false,
       items: [
         {
@@ -210,7 +210,7 @@ const App = () => {
       ]
     },
     {
-      name: 'health',
+      name: 'Health',
       display: false,
       items: [
         {
@@ -258,7 +258,7 @@ const App = () => {
       ]
     },
     {
-      name: 'entertainment',
+      name: 'Entertainment',
       display: false,
       items: [
         {
@@ -394,9 +394,10 @@ const App = () => {
   const [showCategory, setShowCategory] = useState(0)
 
   const handleNextCategory = () => {
-    const currentCat = categories[0]
-    setShowCategory(currentCat)
-    console.log(currentCat)
+    const currentCatIndex = showCategory
+    const nextCatIndex = (currentCatIndex + 1) % categories.length
+    setShowCategory(nextCatIndex)
+    console.log(nextCatIndex)
   }
 
   const frequencies = [
