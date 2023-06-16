@@ -83,7 +83,7 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
   )
 }
 
-const RunningTotals = ({totalAllWeekly, totalAllCategories}) => {
+const RunningTotals = ({ totalAllWeekly, totalAllCategories }) => {
   return (
     <div>
       <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
@@ -434,12 +434,29 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Budget Planner</h1>
-      <ToggleCategoryButtons
-        handleNextCategory={handleNextCategory}
-        handleBackCategory={handleBackCategory}
-      />
-      <Category
+      <header>Header</header>
+      <nav>Navigation</nav>
+      <main className="content">
+        <h1>Budget Planner</h1>
+        <ToggleCategoryButtons
+          handleNextCategory={handleNextCategory}
+          handleBackCategory={handleBackCategory}
+        />
+        <Category
+          categories={categories}
+          frequencies={frequencies}
+          handleAmountChange={handleAmountChange}
+          handleFrequencyChange={handleFrequencyChange}
+          calculateTotalExpenses={calculateTotalExpenses}
+          calculateCategoryTotals={calculateCategoryTotals}
+          categoryTotals={categoryTotals}
+          showCategory={showCategory}
+        />
+        <RunningTotals
+          totalAllWeekly={totalAllWeekly}
+          totalAllCategories={totalAllCategories}
+        />
+        {/* <CategorySummary
         categories={categories}
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
@@ -448,21 +465,10 @@ const App = () => {
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
         showCategory={showCategory}
-      />
-      <RunningTotals
-        totalAllWeekly={totalAllWeekly}
-        totalAllCategories={totalAllCategories}
-      />
-      <CategorySummary
-        categories={categories}
-        frequencies={frequencies}
-        handleAmountChange={handleAmountChange}
-        handleFrequencyChange={handleFrequencyChange}
-        calculateTotalExpenses={calculateTotalExpenses}
-        calculateCategoryTotals={calculateCategoryTotals}
-        categoryTotals={categoryTotals}
-        showCategory={showCategory}
-      />
+      /> */}
+      </main>
+      <aside>Sidebar</aside>
+      <footer>Footer</footer>
     </div>
   );
 }
