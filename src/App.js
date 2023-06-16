@@ -86,8 +86,24 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
 const RunningTotals = ({ totalAllWeekly, totalAllCategories }) => {
   return (
     <div>
-      <h2>Total Weekly Expenses: $ {totalAllWeekly.toFixed(2)} </h2>
-      <h2>Total Yearly Expenses: $ {totalAllCategories.toFixed(2)} </h2>
+      <p>Total Weekly: ${totalAllWeekly.toFixed(2)} </p>
+      <p>Total Yearly: ${totalAllCategories.toFixed(2)} </p>
+    </div>
+  )
+}
+
+const CategoryListBtns = ({ categories, handleCategoryClick }) => {
+  return (
+    <div className="category-list-btns">
+      {categories.map((category, index) => (
+        <button
+          key={index}
+          value={category.index}
+          onClick={handleCategoryClick(category)}
+        >
+          {category.name}
+        </button>
+      ))}
     </div>
   )
 }
@@ -424,6 +440,11 @@ const App = () => {
     console.log(backCatIndex)
   }
 
+  const handleCategoryClick = () => {
+    console.log()
+    setShowCategory()
+  }
+
   const frequencies = [
     { label: 'Weekly', value: 52 },
     { label: 'Fortnightly', value: 26 },
@@ -434,14 +455,31 @@ const App = () => {
 
   return (
     <div className="container">
-      <header><h1>Budget Planner</h1></header>
-      <nav>Navigation</nav>
+      <header><h1>Budget Planner 📘</h1></header>
+      <nav>
+        {/* <CategoryListBtns
+          categories={categories}
+          handleCategoryClick={handleCategoryClick}
+        /> */}
+      </nav>
       <main className="content">
+        <Category
+          categories={categories}
+          frequencies={frequencies}
+          handleAmountChange={handleAmountChange}
+          handleFrequencyChange={handleFrequencyChange}
+          calculateTotalExpenses={calculateTotalExpenses}
+          calculateCategoryTotals={calculateCategoryTotals}
+          categoryTotals={categoryTotals}
+          showCategory={showCategory}
+        />
         <ToggleCategoryButtons
           handleNextCategory={handleNextCategory}
           handleBackCategory={handleBackCategory}
         />
-        <Category
+      </main>
+      <aside>
+        <CategorySummary
           categories={categories}
           frequencies={frequencies}
           handleAmountChange={handleAmountChange}
@@ -455,20 +493,8 @@ const App = () => {
           totalAllWeekly={totalAllWeekly}
           totalAllCategories={totalAllCategories}
         />
-      </main>
-      <aside>
-      <CategorySummary
-        categories={categories}
-        frequencies={frequencies}
-        handleAmountChange={handleAmountChange}
-        handleFrequencyChange={handleFrequencyChange}
-        calculateTotalExpenses={calculateTotalExpenses}
-        calculateCategoryTotals={calculateCategoryTotals}
-        categoryTotals={categoryTotals}
-        showCategory={showCategory}
-      />
       </aside>
-      <footer>Footer</footer>
+      <footer>Developed by Daniel Burgess 😎</footer>
     </div>
   );
 }

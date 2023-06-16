@@ -8,6 +8,7 @@ const CategorySummary = ({
 }) => {
   return (
     <>
+      <h2>Yearly Totals</h2>
       {categories.map((category, index) => (
         <div key={index} className="cat-table">
           <table>
