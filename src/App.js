@@ -434,10 +434,9 @@ const App = () => {
 
   return (
     <div className="container">
-      <header>Header</header>
+      <header><h1>Budget Planner</h1></header>
       <nav>Navigation</nav>
       <main className="content">
-        <h1>Budget Planner</h1>
         <ToggleCategoryButtons
           handleNextCategory={handleNextCategory}
           handleBackCategory={handleBackCategory}
@@ -456,7 +455,9 @@ const App = () => {
           totalAllWeekly={totalAllWeekly}
           totalAllCategories={totalAllCategories}
         />
-        {/* <CategorySummary
+      </main>
+      <aside>
+      <CategorySummary
         categories={categories}
         frequencies={frequencies}
         handleAmountChange={handleAmountChange}
@@ -465,9 +466,8 @@ const App = () => {
         calculateCategoryTotals={calculateCategoryTotals}
         categoryTotals={categoryTotals}
         showCategory={showCategory}
-      /> */}
-      </main>
-      <aside>Sidebar</aside>
+      />
+      </aside>
       <footer>Footer</footer>
     </div>
   );
