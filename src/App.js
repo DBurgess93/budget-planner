@@ -68,7 +68,7 @@ const Category = ({
 
 const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
   return (
-    <div>
+    <div className="toggle-cat-btns">
       <button
         onClick={handleBackCategory}
       >
@@ -94,7 +94,7 @@ const RunningTotals = ({ totalAllWeekly, totalAllCategories }) => {
 
 const CategoryListBtns = ({ categories, handleCategoryClick }) => {
   return (
-    <div className="category-list-btns">
+    <div className="cat-list-btns">
       {categories.map((category, index) => (
         <button
           key={index}
