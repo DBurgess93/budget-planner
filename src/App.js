@@ -98,8 +98,7 @@ const CategoryListBtns = ({ categories, handleCategoryClick }) => {
       {categories.map((category, index) => (
         <button
           key={index}
-          value={category.index}
-          onClick={handleCategoryClick(category)}
+          onClick={() => handleCategoryClick(category.name)}
         >
           {category.name}
         </button>
@@ -440,9 +439,11 @@ const App = () => {
     console.log(backCatIndex)
   }
 
-  const handleCategoryClick = () => {
-    console.log()
-    setShowCategory()
+  const handleCategoryClick = (categoryName) => {
+    const clickedCategory = categories.find((c) => c.name === categoryName)
+    const categoryIndex = categories.indexOf(clickedCategory)
+    console.log(categoryIndex)
+    setShowCategory(categoryIndex)
   }
 
   const frequencies = [
@@ -457,10 +458,10 @@ const App = () => {
     <div className="container">
       <header><h1>Budget Planner 📘</h1></header>
       <nav>
-        {/* <CategoryListBtns
+        <CategoryListBtns
           categories={categories}
           handleCategoryClick={handleCategoryClick}
-        /> */}
+        />
       </nav>
       <main className="content">
         <Category
