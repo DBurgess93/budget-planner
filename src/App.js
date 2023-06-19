@@ -45,7 +45,7 @@ const Category = ({
                     ))}
                   </select>
                 </td>
-                <td>
+                <td className="text-align-end">
                   Annually:
                   <p> {item.annualAmount.toFixed(2)} </p>
                 </td>
@@ -71,11 +71,13 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
     <div className="toggle-cat-btns">
       <button
         onClick={handleBackCategory}
+        className="toggle-btn"
       >
         Previous Category
       </button>
       <button
         onClick={handleNextCategory}
+        className="toggle-btn"
       >
         Next Category
       </button>
@@ -99,6 +101,7 @@ const CategoryListBtns = ({ categories, handleCategoryClick }) => {
         <button
           key={index}
           onClick={() => handleCategoryClick(category.name)}
+          className="cat-list-btn"
         >
           {category.name}
         </button>
