@@ -7,7 +7,7 @@ const CategorySummary = ({
   showCategory
 }) => {
   return (
-    <>
+    <div className="category-summary">
       <h2>Yearly Totals</h2>
       {categories.map((category, index) => (
         <div key={index} className="cat-table">
@@ -21,7 +21,7 @@ const CategorySummary = ({
           </table>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 

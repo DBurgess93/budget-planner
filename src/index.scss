@@ -1,8 +1,13 @@
+@import url('./fonts.scss');
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Supreme';
 }
+
+
 
 button {
   cursor: pointer;
@@ -37,6 +42,8 @@ nav {
 }
 aside {
   grid-area: sidebar;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 footer {
   grid-area: footer;
@@ -47,15 +54,15 @@ footer,
 aside,
 nav {
   background: #2E3138;
-  color: white;
+  color: #eaeaea;
   padding: 20px;
-  border: skyblue 1px solid;
+  border: #1a5871 3px solid;
 }
 main {
   background: #6C6F7D;
-  color: white;
+  color: #eaeaea;
   padding: 12px;
-  border: skyblue 1px solid;
+  border: #1a5871 3px solid;
   place-items: center;
 }
 
@@ -81,7 +88,7 @@ main {
     table-layout: fixed;
     width: auto;
     max-width: 380px;
-    // border: 1px solid #9393bd;
+    border: #1a5871 1px solid;
     border-radius: 4px;
     background-color: #2E3138;
     margin: 2px;
@@ -104,4 +111,10 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.running-totals {
+  p {
+    margin-bottom: 12px;
+  }
 }

@@ -85,7 +85,7 @@ const ToggleCategoryButtons = ({ handleNextCategory, handleBackCategory }) => {
 
 const RunningTotals = ({ totalAllWeekly, totalAllCategories }) => {
   return (
-    <div>
+    <div className="running-totals">
       <p>Total Weekly: ${totalAllWeekly.toFixed(2)} </p>
       <p>Total Yearly: ${totalAllCategories.toFixed(2)} </p>
     </div>
