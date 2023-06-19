@@ -5,8 +5,8 @@
   padding: 0;
   margin: 0;
   font-family: 'Supreme';
-}
 
+}
 
 
 button {
@@ -44,6 +44,7 @@ aside {
   grid-area: sidebar;
   display: grid;
   grid-template-rows: 1fr 1fr;
+  justify-content: center;
 }
 footer {
   grid-area: footer;
@@ -117,4 +118,15 @@ main {
   p {
     margin-bottom: 12px;
   }
+}
+
+.category-summary {
+  width: 208px;
+}
+
+.cat-sum-name {
+  text-align: left;
+}
+.cat-sum-total {
+  text-align: end;
 }

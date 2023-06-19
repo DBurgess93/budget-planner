@@ -14,8 +14,8 @@ const CategorySummary = ({
           <table>
             <tbody>
               <tr>
-                <td> {category.name} </td>
-                <td>${categoryTotals[categories[index].name]}</td>
+                <td className="cat-sum-name"> {category.name} </td>
+                <td className="cat-sum-total">${categoryTotals[categories[index].name]}</td>
               </tr>
             </tbody>
           </table>
